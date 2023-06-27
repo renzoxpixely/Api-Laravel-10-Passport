@@ -73,4 +73,18 @@ class AuthController extends Controller
 
         return sendResponse($success, $message);
     }
+
+    /**
+     * This method returns authenticated user details
+     */
+    public function me()
+    {
+        //returns details
+        //dd('ffffffffff');
+        if (auth()->user()) {
+            return response()->json(['authenticated-user' => auth()->user()], 200);
+        } else {
+            return sendError('Unauthorised', ['error' => 'Unauthorised'], 401);
+        }
+    }
 }
