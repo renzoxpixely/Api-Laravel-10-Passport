@@ -23,6 +23,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 //Route::get('/me', [AuthController::class,'me']);
 //add this middleware to ensure that every request is authenticated
+
+Route::get('/login', function(){
+    return sendError('Unauthorised', '', 401);
+})->name('login');
+
 Route::middleware('auth:api')->group(function () {
     Route::get('/me', [AuthController::class, 'me'])->name('me');
 });
