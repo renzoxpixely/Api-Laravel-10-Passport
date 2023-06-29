@@ -25,9 +25,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 //add this middleware to ensure that every request is authenticated
 
 Route::get('/login', function(){
-    return sendError('Unauthorised', '', 401);
+    // return sendError('Unauthorised', '', 401);
+    return response()->json(['message' => 'Unauthorised'], 401);
 })->name('login');
 
 Route::middleware('auth:api')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/me', [AuthController::class, 'me'])->name('me');
+    Route::get('/users/{id}', [AuthController::class, 'show'])->name('show');
+    Route::get('/users', [AuthController::class, 'index'])->name('index');
 });

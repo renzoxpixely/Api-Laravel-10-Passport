@@ -87,4 +87,25 @@ class AuthController extends Controller
             return sendError('Unauthorised', ['error' => 'Unauthorised'], 401);
         }
     }
+
+    public function logout(Request $request)
+    {
+        auth()->user()->token()->revoke();
+        return response()->json(['message' => 'Successfully logged out.']);
+    }
+
+    public function index(){
+        $users = User::all();
+        return sendResponse('Success', $users);
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if($user)
+            return sendResponse('Success', $user);
+        else
+            return sendError('Data not found');
+    }       
 }
