@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BlogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/me', [AuthController::class, 'me'])->name('me');
     Route::get('/users/{id}', [AuthController::class, 'show'])->name('show');
     Route::get('/users', [AuthController::class, 'index'])->name('index');
+    Route::resource('/blog', BlogController::class)->except('create','edit');
 });
